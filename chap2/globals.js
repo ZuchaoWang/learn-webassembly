@@ -1,6 +1,6 @@
 const fs = require("fs");
 const bytes = fs.readFileSync("./globals.wasm");
-
+let global_test = null;
 let importObject = {
   js: {
     log_i32: (value) => {
@@ -22,6 +22,6 @@ let importObject = {
 
 (async () => {
   let obj = await WebAssembly.instantiate(new Uint8Array(bytes), importObject);
-  let { globaltest: global_test } = obj.instance.exports;
+  ({ globaltest: global_test } = obj.instance.exports);
   global_test();
 })();
