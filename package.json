@@ -1,0 +1,25 @@
+{
+  "name": "learn-webassembly",
+  "version": "0.0.1",
+  "description": "learn webassembly, all code from book \"the art of webassembly\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZuchaoWang/learn-webassembly.git"
+  },
+  "keywords": [
+    "webassembly"
+  ],
+  "author": "zuchao.wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZuchaoWang/learn-webassembly/issues"
+  },
+  "homepage": "https://github.com/ZuchaoWang/learn-webassembly#readme",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
