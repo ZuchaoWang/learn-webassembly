@@ -308,5 +308,49 @@
     (call $byte_copy_i64 (local.get $source) (local.get $dest) (local.get $len))
   )
 
-  ;; part 3 of 4
+  (func $append_out (param $source i32) (param $len i32)
+    (call $string_copy
+      (local.get $source)
+      (i32.add
+        (global.get $out_str_ptr)
+        (global.get $out_str_len)
+      )
+      (local.get $len)
+    )
+    ;; add length to the output string length
+    global.get $out_str_len
+    local.get $len
+    i32.add
+    global.set $out_str_len
+  )
+
+  (func (export "setOutput") (param $num i32) (result i32)
+    ;; create a decimal string from $num value
+    (call $set_dec_string (local.get $num) (global.get $dec_string_len))
+    ;; create a hexadecimal string from $num value
+    (call $set_hex_string (local.get $num) (global.get $hex_string_len))
+    ;; create a binary string from $num value
+    (call $set_bin_string (local.get $num) (global.get $bin_string_len))
+    
+    i32.const 0
+    global.set $out_str_len ;; set $out_str_len to 0
+    
+    ;; append <h1>${decimal_string}</h1> to output string
+    (call $append_out (global.get $h1_open_ptr) (global.get $h1_open_len))
+    (call $append_out (global.get $dec_string_ptr) (global.get $dec_string_len))
+    (call $append_out (global.get $h1_close_ptr) (global.get $h1_close_len))
+    
+    ;; append <h4>${hexadecimal_string}</h4> to output string
+    (call $append_out (global.get $h4_open_ptr) (global.get $h4_open_len))
+    (call $append_out (global.get $hex_string_ptr) (global.get $hex_string_len))
+    (call $append_out (global.get $h4_close_ptr) (global.get $h4_close_len))
+    
+    ;; append <h4>${binary_string}</h4> to output string
+    (call $append_out (global.get $h4_open_ptr) (global.get $h4_open_len))
+    (call $append_out (global.get $bin_string_ptr) (global.get $bin_string_len))
+    (call $append_out (global.get $h4_close_ptr) (global.get $h4_close_len))
+    
+    ;; return output string length
+    global.get $out_str_len
+  )
 )
