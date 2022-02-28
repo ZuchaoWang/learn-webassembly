@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ZuchaoWang/learn-webassembly#readme",
   "dependencies": {
+    "@assemblyscript/loader": "^0.19.23",
     "colors": "^1.4.0"
   },
   "devDependencies": {
