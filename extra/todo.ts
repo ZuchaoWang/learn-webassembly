@@ -1,4 +1,4 @@
-const todos = new Map<string,string>();
+const todos = new Map<string, string>();
 const regs = new ArrayBuffer(1024);
 
 function updateTodo(key: string, content: string): void {
@@ -10,7 +10,12 @@ function deleteTodo(key: string): void {
 }
 
 export function outputTodos(): string {
-  return todos.toString();
+  var kvs = new Array<string>(),
+    keys = todos.keys();
+  for (let i = 0; i < keys.length; i++) {
+    kvs.push(keys[i] + ":" + todos.get(keys[i]));
+  }
+  return kvs.join(", ");
 }
 
 export function execCommand(cmd: string): void {
