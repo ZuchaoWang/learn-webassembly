@@ -15,14 +15,35 @@ const loader = require("@assemblyscript/loader");
     console.log(output);
   }
 
+  function saveSnapshot() {
+    module.exports.saveRegs();
+    return module.exports.memory.buffer.slice();
+  }
+
+  function restoreSnapshot(snapshot) {
+    new Uint8Array(module.exports.memory.buffer).set(new Uint8Array(snapshot));
+    module.exports.restoreRegs();
+  }
+
   execCommand("A:1");
   outputTodos();
   execCommand("B:2");
   outputTodos();
+  let snapshot = saveSnapshot();
   execCommand("C::");
   outputTodos();
-  execCommand("B:3");
+  execCommand("A:3");
+  outputTodos();
+  execCommand("B:4");
   outputTodos();
   execCommand("B");
+  outputTodos();
+  restoreSnapshot(snapshot)
+  outputTodos();
+  execCommand("A:5");
+  outputTodos();
+  restoreSnapshot(snapshot)
+  outputTodos();
+  execCommand("B:6");
   outputTodos();
 })();
